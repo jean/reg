@@ -11,6 +11,19 @@ tests_require = [
     'pytest-cov'
     ]
 
+
+extra = {}
+try:
+    from Cython.Build import cythonize
+    path = 'reg'
+    extra['ext_modules'] = cythonize(
+        [os.path.join(path, '*.py')],
+        exclude=['reg/mapply_extra.py'],
+        quiet=True)
+except ImportError:
+    pass
+
+
 setup(name='reg',
       version='0.6.dev0',
       description="Generic functions. Clever registries and lookups",
@@ -38,5 +51,6 @@ setup(name='reg',
       tests_require=tests_require,
       extras_require = dict(
         test=tests_require,
-        )
+        ),
+      **extra
       )

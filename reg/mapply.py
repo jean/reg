@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import inspect
+from mapply_extra import fake_empty_init, WRAPPER_DESCRIPTOR
 
 
 def mapply(func, *args, **kw):
@@ -99,22 +100,6 @@ def get_callable_info(callable):
         return callable, callable, True
     except AttributeError:
         return None, None, False
-
-
-def fake_empty_init():
-    pass
-
-
-class Dummy(object):
-    pass
-
-
-class InitDummy(object):
-    def __init__(self):
-        pass
-
-
-WRAPPER_DESCRIPTOR = Dummy.__init__
 
 
 def get_class_init(class_):

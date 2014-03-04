@@ -6,5 +6,7 @@ develop-eggs
 htmlcov
 doc/build
 .tox
-
+*.c
+*.so
+build
 

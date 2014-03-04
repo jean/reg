@@ -4,6 +4,10 @@ from __future__ import unicode_literals
 
 from .sentinel import Sentinel
 from .mapply import mapply
+try:
+    from hireg import mapply
+except ImportError:
+    pass
 
 SENTINEL = Sentinel('Sentinel')
 

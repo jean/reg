@@ -3,7 +3,10 @@ from functools import update_wrapper
 from reg.implicit import implicit, NoImplicitLookupError
 from reg.lookup import ComponentLookupError
 from reg.mapply import mapply
-
+try:
+    from hireg import mapply
+except ImportError:
+    pass
 
 def generic(func):
     """Turn a function into a generic function.

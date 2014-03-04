@@ -9,3 +9,7 @@ from .compose import ListClassLookup, ChainClassLookup, CachingClassLookup
 from .generic import generic
 from .mapply import mapply, arginfo
 from .sentinel import Sentinel
+try:
+    from hireg import mapply
+except ImportError:
+    pass

@@ -168,15 +168,45 @@ class Lookup(object):
 
         If no components can be found, the iterable will be empty.
         """
-        if not class_method:
-            classes = [arg.__class__ for arg in args]
-        else:
-            if args:
-                classes = [args[0]]
-                for arg in args[1:]:
-                    classes.append(arg.__class__)
+        if not args:
+            classes = ()
+        elif not class_method:
+            l = len(args)
+            if l == 1:
+                classes = (args[0].__class__,)
+            elif l == 2:
+                classes = (args[0].__class__,
+                           args[1].__class__)
+            elif l == 3:
+                classes = (args[0].__class__,
+                           args[1].__class__,
+                           args[2].__class__)
+            elif l == 4:
+                classes = (args[0].__class__,
+                           args[1].__class__,
+                           args[2].__class__,
+                           args[3].__class__)
             else:
-                classes = ()
+                classes = tuple(arg.__class__ for arg in args)
+        else:
+            l = len(args)
+            if l == 1:
+                classes = (args[0],)
+            elif l == 2:
+                classes = (args[0],
+                           args[1].__class__)
+            elif l == 3:
+                classes = (args[0],
+                           args[1].__class__,
+                           args[2].__class__)
+            elif l == 4:
+                classes = (args[0],
+                           args[1].__class__,
+                           args[2].__class__,
+                           args[3].__class__)
+            else:
+                classes = (arg[0],) + tuple(arg.__class__ for arg in args[1:])
+
         for found in self.class_lookup.all(key, classes):
             if isinstance(found, Matcher):
                 if predicates is None:
